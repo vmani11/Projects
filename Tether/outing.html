@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — Outing</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .outing-hero {
+      background: var(--deep-moss);
+      padding: 16px 24px 26px;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--sage); font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 18px;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 14px; border-radius: 20px;
+      border: none; cursor: pointer;
+    }
+    .hero-cat {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(100,175,155,0.18);
+      border: 1px solid rgba(100,175,155,0.28);
+      color: var(--sage); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--cream); line-height: 1.2; margin-bottom: 14px;
+    }
+    .hero-row {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: #8aad9f; margin-bottom: 6px;
+    }
+
+    .content-block { padding: 18px 24px 0; }
+    .block-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--stone); margin-bottom: 10px;
+    }
+
+    .compat-box {
+      background: var(--sage-bg);
+      border: 1.5px solid rgba(22,122,95,0.15);
+      border-radius: 14px; padding: 14px 15px;
+      display: flex; gap: 10px;
+    }
+    .compat-box .cb-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .compat-box .cb-text { font-size: 13px; color: var(--deep-moss); line-height: 1.55; }
+    .compat-box .cb-text strong { color: var(--forest); }
+
+    .members-box {
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 0 16px;
+    }
+    .member-row {
+      display: flex; align-items: center; gap: 11px;
+      padding: 12px 0; border-bottom: 1px solid var(--linen);
+    }
+    .member-row:last-child { border-bottom: none; }
+    .mem-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .mem-name   { font-size: 14px; font-weight: 700; color: var(--deep-moss); }
+    .mem-detail { font-size: 12px; color: var(--stone); margin-top: 2px; }
+    .mem-vibe   { font-size: 11px; color: var(--sage); font-weight: 600; margin-top: 2px; }
+    .pending-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 2px dashed #c2bfb5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .chat-locked {
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 15px 16px;
+      display: flex; align-items: center; gap: 11px;
+    }
+    .chat-locked .cl-icon  { font-size: 22px; }
+    .chat-locked .cl-title { font-size: 13px; font-weight: 700; color: var(--deep-moss); margin-bottom: 2px; }
+    .chat-locked .cl-sub   { font-size: 12px; color: var(--stone); }
+
+    .sticky-footer {
+      position: sticky; bottom: 0;
+      background: var(--cream);
+      border-top: 1.5px solid var(--linen);
+      padding: 14px 24px 28px;
+    }
+    .price-row {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 12px;
+    }
+    .price-label { font-size: 11px; font-weight: 700; color: var(--stone); text-transform: uppercase; letter-spacing: 0.5px; }
+    .price-val {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 26px; font-weight: 700; color: var(--deep-moss);
+    }
+    .safety-note {
+      text-align: center; font-size: 11px; color: var(--stone);
+      margin-top: 9px;
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar dark">
+    <span class="status-time" style="color:var(--cream)">9:41</span>
+    <span class="status-icons" style="color:var(--cream)">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="screen-scroll" style="padding-bottom:140px;">
+    <div class="outing-hero">
+      <a href="feed.html" class="back-btn">← Back</a>
+      <div class="hero-cat">🍜 Food & Drink · User-posted</div>
+      <div class="hero-title">Late-night ramen tasting on 6th</div>
+      <div class="hero-row">📅 This Friday · 8:00 PM</div>
+      <div class="hero-row">📍 East 6th Street <span style="opacity:0.5;margin-left:4px;">· address after you join</span></div>
+      <div class="hero-row">👥 Group of 4–6 · <span style="color:#f6c344;font-weight:700;margin-left:4px;">2 spots left</span></div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-label">About this outing</div>
+      <p>Found a spot doing a soft launch — they want a small group to try the menu before they open publicly. No cost, just good food and honest feedback. About 2 hours.</p>
+    </div>
+
+    <div class="content-block">
+      <div class="block-label">Why you're matched</div>
+      <div class="compat-box">
+        <div class="cb-icon">🌿</div>
+        <div class="cb-text"><strong>You all tend to prefer a loose plan over total spontaneity</strong> — and everyone in this group leans toward trying new food spots. Low-key and real.</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="block-label">Your group</div>
+      <div class="members-box">
+        <div class="member-row">
+          <div class="mem-av" style="background:#167a5f;">M</div>
+          <div>
+            <div class="mem-name">Maya <span style="font-weight:400;font-size:12px;color:var(--stone);">you</span></div>
+            <div class="mem-detail">20 · UT Austin Sophomore</div>
+            <div class="mem-vibe">Grounded Explorer · intro-leaning</div>
+          </div>
+        </div>
+        <div class="member-row">
+          <div class="mem-av" style="background:#7b5ea7;">P</div>
+          <div>
+            <div class="mem-name">Priya</div>
+            <div class="mem-detail">21 · UT Austin Junior</div>
+            <div class="mem-vibe">Spontaneous · extro-leaning</div>
+          </div>
+        </div>
+        <div class="member-row">
+          <div class="mem-av" style="background:#c0832a;">E</div>
+          <div>
+            <div class="mem-name">Eli</div>
+            <div class="mem-detail">22 · Recent grad</div>
+            <div class="mem-vibe">Intro-leaning · spontaneous</div>
+          </div>
+        </div>
+        <div class="member-row" style="opacity:0.5;">
+          <div class="pending-av">?</div>
+          <div>
+            <div class="mem-name" style="color:var(--stone);">1 more person</div>
+            <div class="mem-detail">Matching now…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding-bottom:20px;">
+      <div class="block-label">Group chat</div>
+      <div class="chat-locked">
+        <span class="cl-icon">🔒</span>
+        <div>
+          <div class="cl-title">Unlocks when you join</div>
+          <div class="cl-sub">Chat opens once confirmed. Venue address shared here too.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-footer">
+    <div class="price-row">
+      <div>
+        <div class="price-label">Price</div>
+        <div class="price-val">Free</div>
+      </div>
+      <span class="tag green">🎉 Trial — no card needed</span>
+    </div>
+    <a href="confirmed.html" class="btn btn-primary" style="font-size:16px;">I'm in — Join this outing</a>
+    <div class="safety-note">🔒 Verified profiles · Safety check-in on the day</div>
+  </div>
+</div>
+</body>
+</html>

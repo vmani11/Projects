@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — How'd it go?</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .fb-hero {
+      text-align: center; padding: 24px 24px 16px;
+    }
+    .fb-emoji { font-size: 52px; display: block; margin-bottom: 10px; }
+    .fb-hed {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 26px; font-weight: 700; color: var(--deep-moss); margin-bottom: 6px;
+    }
+    .fb-sub { font-size: 13px; color: var(--stone); line-height: 1.55; }
+
+    .rating-card {
+      margin: 0 16px 12px;
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 16px; padding: 18px 16px;
+    }
+    .rc-q { font-size: 14px; font-weight: 700; color: var(--deep-moss); margin-bottom: 14px; line-height: 1.4; }
+
+    .star-row { display: flex; gap: 6px; margin-bottom: 8px; }
+    .star-btn {
+      flex: 1; aspect-ratio: 1;
+      background: var(--cream); border: 1.5px solid var(--linen);
+      border-radius: 12px; font-size: 22px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      filter: grayscale(1) opacity(0.4); transition: filter 0.12s;
+    }
+    .star-btn:active { opacity: 0.7; }
+    .star-btn.lit { filter: none; background: #fff8e6; border-color: #f6c344; }
+    .star-labels {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: var(--stone); font-weight: 600; padding: 0 2px;
+    }
+
+    .thumb-row { display: flex; gap: 8px; }
+    .thumb-btn {
+      flex: 1; background: var(--cream);
+      border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 15px 10px;
+      text-align: center; cursor: pointer;
+    }
+    .thumb-btn:active { opacity: 0.8; }
+    .thumb-btn .tb-icon  { font-size: 26px; display: block; margin-bottom: 5px; }
+    .thumb-btn .tb-label { font-size: 13px; font-weight: 700; color: var(--deep-moss); }
+    .thumb-btn.up.sel   { background: var(--sage-bg); border-color: var(--forest); }
+    .thumb-btn.down.sel { background: #fdecea; border-color: var(--red); }
+
+    .connect-section { padding: 0 16px; margin-bottom: 12px; }
+    .connect-title { font-size: 14px; font-weight: 700; color: var(--deep-moss); margin-bottom: 3px; }
+    .connect-sub   { font-size: 13px; color: var(--stone); margin-bottom: 12px; }
+
+    .connect-card {
+      display: flex; align-items: center; gap: 11px;
+      padding: 12px 14px;
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 14px; margin-bottom: 8px;
+    }
+    .connect-card.connected { border-color: var(--sage); background: var(--sage-bg); }
+    .cc-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .cc-name   { font-size: 14px; font-weight: 700; color: var(--deep-moss); }
+    .cc-detail { font-size: 12px; color: var(--stone); margin-top: 2px; }
+    .cc-btn {
+      background: var(--forest); color: white;
+      font-size: 12px; font-weight: 700;
+      padding: 8px 14px; border-radius: 10px;
+      border: none; cursor: pointer; flex-shrink: 0; margin-left: auto;
+    }
+    .cc-btn:active { opacity: 0.8; }
+    .cc-btn.done { background: var(--sage); }
+
+    .share-card {
+      margin: 0 16px 12px;
+      background: var(--deep-moss); border-radius: 16px;
+      padding: 18px; display: flex; gap: 13px; align-items: center;
+    }
+    .share-card .sh-icon  { font-size: 30px; flex-shrink: 0; }
+    .share-card .sh-title {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 3px;
+    }
+    .share-card .sh-sub { font-size: 12px; color: #8aad9f; line-height: 1.4; }
+    .share-card .sh-btn {
+      background: var(--sage); color: white;
+      font-size: 12px; font-weight: 700;
+      padding: 9px 13px; border-radius: 10px;
+      border: none; cursor: pointer; flex-shrink: 0;
+    }
+
+    .next-cta {
+      margin: 0 16px 14px;
+      background: var(--sage-bg);
+      border: 1.5px solid rgba(22,122,95,0.18);
+      border-radius: 16px; padding: 16px;
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .next-cta:active { opacity: 0.85; }
+    .next-cta .nc-icon  { font-size: 26px; }
+    .next-cta .nc-title { font-size: 14px; font-weight: 700; color: var(--forest); margin-bottom: 2px; }
+    .next-cta .nc-sub   { font-size: 12px; color: var(--stone); }
+    .next-cta .nc-arrow { font-size: 18px; color: var(--forest); margin-left: auto; }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span class="status-time">10:48 PM</span>
+    <span class="status-icons">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="screen-scroll">
+    <div class="fb-hero">
+      <span class="fb-emoji">🌙</span>
+      <div class="fb-hed">How'd it go, Maya?</div>
+      <p class="fb-sub">30 seconds. Helps us find even better people next time.</p>
+    </div>
+
+    <div class="rating-card">
+      <div class="rc-q">How well did you click with your group?</div>
+      <div class="star-row" id="matchStars">
+        <button class="star-btn" onclick="rateMatch(1)">⭐</button>
+        <button class="star-btn" onclick="rateMatch(2)">⭐</button>
+        <button class="star-btn" onclick="rateMatch(3)">⭐</button>
+        <button class="star-btn lit" onclick="rateMatch(4)">⭐</button>
+        <button class="star-btn" onclick="rateMatch(5)">⭐</button>
+      </div>
+      <div class="star-labels"><span>Not really</span><span>Really well</span></div>
+    </div>
+
+    <div class="rating-card">
+      <div class="rc-q">Would you do another outing like this?</div>
+      <div class="thumb-row">
+        <div class="thumb-btn up sel" id="thumbUp" onclick="pickThumb('up')">
+          <span class="tb-icon">👍</span><span class="tb-label">Yes, loved it</span>
+        </div>
+        <div class="thumb-btn down" id="thumbDown" onclick="pickThumb('down')">
+          <span class="tb-icon">👎</span><span class="tb-label">Not for me</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connect-section">
+      <div class="connect-title">Stay connected?</div>
+      <div class="connect-sub">Connect to plan future outings together.</div>
+
+      <div class="connect-card" id="card-p">
+        <div class="cc-av" style="background:#7b5ea7;">P</div>
+        <div><div class="cc-name">Priya</div><div class="cc-detail">21 · Food & Drink · Arts</div></div>
+        <button class="cc-btn" id="btn-p" onclick="connect('p')">Connect</button>
+      </div>
+      <div class="connect-card" id="card-e">
+        <div class="cc-av" style="background:#c0832a;">E</div>
+        <div><div class="cc-name">Eli</div><div class="cc-detail">22 · Arts · Food & Drink</div></div>
+        <button class="cc-btn" id="btn-e" onclick="connect('e')">Connect</button>
+      </div>
+      <div class="connect-card" id="card-r">
+        <div class="cc-av" style="background:#2e7d9b;">R</div>
+        <div><div class="cc-name">Ravi</div><div class="cc-detail">23 · Social · Learning</div></div>
+        <button class="cc-btn" id="btn-r" onclick="connect('r')">Connect</button>
+      </div>
+    </div>
+
+    <div class="share-card">
+      <span class="sh-icon">📸</span>
+      <div style="flex:1;">
+        <div class="sh-title">Share your first time</div>
+        <div class="sh-sub">Post to your story. No pressure, no incentive — just vibes.</div>
+      </div>
+      <button class="sh-btn">Share</button>
+    </div>
+
+    <a href="feed.html" class="next-cta">
+      <span class="nc-icon">✨</span>
+      <div><div class="nc-title">Find your next outing</div><div class="nc-sub">Your matches just got smarter</div></div>
+      <span class="nc-arrow">→</span>
+    </a>
+
+    <div style="padding: 0 16px 8px;">
+      <a href="feed.html" class="btn btn-secondary">Back to feed</a>
+    </div>
+  </div>
+
+  <nav class="nav-bar">
+    <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Discover</span></a>
+    <a href="checkin.html" class="nav-item active"><span class="nav-icon">🗓️</span><span class="nav-label">My Outings</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Groups</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+  </nav>
+</div>
+
+<script>
+function rateMatch(n) {
+  document.querySelectorAll('#matchStars .star-btn').forEach((b,i) => b.classList.toggle('lit', i < n));
+}
+function pickThumb(w) {
+  document.getElementById('thumbUp').classList.toggle('sel', w==='up');
+  document.getElementById('thumbDown').classList.toggle('sel', w==='down');
+}
+function connect(id) {
+  document.getElementById('btn-'+id).textContent = '✓ Connected';
+  document.getElementById('btn-'+id).classList.add('done');
+  document.getElementById('card-'+id).classList.add('connected');
+}
+</script>
+</body>
+</html>

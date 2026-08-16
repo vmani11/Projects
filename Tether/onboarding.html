@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — Get Started</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ob-screen { display: none; padding: 0 24px 32px; }
+    .ob-screen.active { display: block; }
+
+    .ob-top {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 0;
+    }
+
+    .ob-back {
+      width: 34px; height: 34px;
+      background: var(--white);
+      border: 1.5px solid var(--linen);
+      border-radius: 50%;
+      font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--deep-moss); text-decoration: none;
+    }
+
+    .ob-step {
+      font-size: 12px; font-weight: 700;
+      color: var(--stone);
+      background: var(--linen);
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    .ob-progress { margin: 14px 0 22px; }
+
+    .ob-heading { margin-bottom: 6px; }
+    .ob-subhead { font-size: 14px; color: var(--stone); margin-bottom: 26px; line-height: 1.55; }
+
+    .photo-upload {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: var(--linen);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      cursor: pointer;
+      border: 2px dashed #c2bfb5;
+      gap: 4px;
+    }
+    .photo-upload span { font-size: 24px; }
+    .photo-upload p { font-size: 11px; color: var(--stone); font-weight: 600; }
+
+    .ob-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--stone); text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px; display: block;
+    }
+
+    .ob-input {
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--linen);
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-size: 14px; color: var(--deep-moss);
+      font-family: Arial, sans-serif;
+      margin-bottom: 14px; outline: none;
+    }
+    .ob-input:focus { border-color: var(--sage); }
+    .ob-input::placeholder { color: #bbb; }
+
+    .quiz-q { font-size: 14px; font-weight: 700; color: var(--deep-moss); margin-bottom: 12px; line-height: 1.45; }
+
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+
+    .quiz-option {
+      background: var(--white);
+      border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 14px 15px;
+      cursor: pointer;
+      display: flex; align-items: flex-start; gap: 11px;
+    }
+    .quiz-option.selected { border-color: var(--forest); background: var(--sage-bg); }
+    .quiz-option-icon { font-size: 20px; flex-shrink: 0; }
+    .quiz-option-title { font-size: 13px; font-weight: 700; color: var(--deep-moss); margin-bottom: 2px; }
+    .quiz-option-desc  { font-size: 12px; color: var(--stone); line-height: 1.4; }
+
+    .interest-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; }
+
+    .interest-chip {
+      padding: 9px 14px; border-radius: 20px;
+      background: var(--white); border: 1.5px solid var(--linen);
+      font-size: 12px; font-weight: 600; color: var(--stone);
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+    }
+    .interest-chip.selected { background: var(--forest); border-color: var(--forest); color: var(--white); }
+
+    .entry-cards { display: flex; gap: 8px; margin-bottom: 24px; }
+    .entry-card {
+      flex: 1; background: var(--white);
+      border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 16px 10px;
+      text-align: center; cursor: pointer;
+    }
+    .entry-card.selected { border-color: var(--forest); background: var(--sage-bg); }
+    .entry-icon  { font-size: 26px; margin-bottom: 7px; }
+    .entry-title { font-size: 12px; font-weight: 700; color: var(--deep-moss); margin-bottom: 3px; }
+    .entry-desc  { font-size: 11px; color: var(--stone); line-height: 1.4; }
+
+    /* Result */
+    .result-card {
+      background: var(--deep-moss);
+      border-radius: 18px; padding: 26px 22px;
+      margin-bottom: 20px; text-align: center;
+    }
+    .result-emoji { font-size: 44px; display: block; margin-bottom: 12px; }
+    .result-type  {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--cream); margin-bottom: 10px;
+    }
+    .result-desc  { font-size: 13px; color: #8aad9f; line-height: 1.65; }
+
+    .traits-box {
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 4px 16px;
+      margin-bottom: 18px;
+    }
+    .trait-row {
+      display: flex; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid var(--linen);
+    }
+    .trait-row:last-child { border-bottom: none; }
+    .trait-label { font-size: 13px; color: var(--stone); min-width: 110px; }
+    .trait-bar   { flex: 1; height: 4px; background: var(--linen); border-radius: 2px; margin: 0 12px; }
+    .trait-fill  { height: 100%; border-radius: 2px; background: var(--sage); }
+    .trait-val   { font-size: 11px; font-weight: 700; color: var(--forest); width: 70px; text-align: right; }
+
+    .trial-banner {
+      background: var(--sage-bg);
+      border: 1.5px solid rgba(22,122,95,0.18);
+      border-radius: 14px; padding: 15px 16px;
+      display: flex; align-items: flex-start; gap: 11px;
+      margin-bottom: 18px;
+    }
+    .trial-banner .tb-icon { font-size: 22px; }
+    .trial-banner .tb-title { font-size: 13px; font-weight: 700; color: var(--forest); margin-bottom: 2px; }
+    .trial-banner .tb-sub   { font-size: 12px; color: var(--stone); }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="screen-scroll">
+
+    <!-- Step 1 -->
+    <div class="ob-screen active" id="step1">
+      <div class="ob-top">
+        <a href="index.html" class="ob-back">←</a>
+        <span class="ob-step">1 of 4</span>
+      </div>
+      <div class="ob-progress"><div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div></div>
+
+      <h2 class="ob-heading">First, a few basics</h2>
+      <p class="ob-subhead">Under 4 minutes. No credit card needed.</p>
+
+      <div class="photo-upload" onclick="this.querySelector('p').textContent='✓ Added'">
+        <span>📷</span><p>Add photo</p>
+      </div>
+
+      <label class="ob-label">Your name</label>
+      <input class="ob-input" type="text" value="Maya">
+
+      <label class="ob-label">Age</label>
+      <input class="ob-input" type="number" value="20">
+
+      <label class="ob-label">One thing you've been wanting to try</label>
+      <input class="ob-input" type="text" value="Try that ramen place on 6th everyone talks about">
+
+      <button class="btn btn-primary" onclick="goTo('step2')">Continue →</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="ob-screen" id="step2">
+      <div class="ob-top">
+        <button class="ob-back" onclick="goTo('step1')">←</button>
+        <span class="ob-step">2 of 4</span>
+      </div>
+      <div class="ob-progress"><div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div></div>
+
+      <h2 class="ob-heading">A few quick scenarios</h2>
+      <p class="ob-subhead">No wrong answers — this is how we find people you'll actually click with.</p>
+
+      <p class="quiz-q">You just moved to a new city. It's Saturday morning. What do you do?</p>
+      <div class="quiz-options" id="q1">
+        <div class="quiz-option" onclick="pick(this,'q1')">
+          <div class="quiz-option-icon">🗺️</div>
+          <div><div class="quiz-option-title">Wander and see what I find</div><div class="quiz-option-desc">Happy to stumble onto something good</div></div>
+        </div>
+        <div class="quiz-option selected" onclick="pick(this,'q1')">
+          <div class="quiz-option-icon">📋</div>
+          <div><div class="quiz-option-title">Research a few spots beforehand</div><div class="quiz-option-desc">Loose plan — not rigid, not random</div></div>
+        </div>
+        <div class="quiz-option" onclick="pick(this,'q1')">
+          <div class="quiz-option-icon">🛋️</div>
+          <div><div class="quiz-option-title">Take it slow at home first</div><div class="quiz-option-desc">I need a day to recharge</div></div>
+        </div>
+      </div>
+
+      <p class="quiz-q">A friend invites you to dinner with people you've never met. You feel…</p>
+      <div class="quiz-options" id="q2">
+        <div class="quiz-option selected" onclick="pick(this,'q2')">
+          <div class="quiz-option-icon">😬</div>
+          <div><div class="quiz-option-title">A little nervous, but I'll go</div><div class="quiz-option-desc">Usually fine once I'm there</div></div>
+        </div>
+        <div class="quiz-option" onclick="pick(this,'q2')">
+          <div class="quiz-option-icon">😊</div>
+          <div><div class="quiz-option-title">Excited — love meeting new people</div><div class="quiz-option-desc">The more the merrier</div></div>
+        </div>
+        <div class="quiz-option" onclick="pick(this,'q2')">
+          <div class="quiz-option-icon">😓</div>
+          <div><div class="quiz-option-title">Pretty anxious honestly</div><div class="quiz-option-desc">I'd need to know something about them first</div></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="goTo('step3')">Continue →</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="ob-screen" id="step3">
+      <div class="ob-top">
+        <button class="ob-back" onclick="goTo('step2')">←</button>
+        <span class="ob-step">3 of 4</span>
+      </div>
+      <div class="ob-progress"><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+
+      <h2 class="ob-heading">What are you into?</h2>
+      <p class="ob-subhead">Pick at least 2 — shapes which experiences show up for you.</p>
+
+      <div class="interest-grid">
+        <div class="interest-chip selected" onclick="toggle(this)"><span>🍜</span> Food & Drink</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>🏕️</span> Outdoors</div>
+        <div class="interest-chip selected" onclick="toggle(this)"><span>🎨</span> Arts & Culture</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>🎲</span> Games & Social</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>🎵</span> Music & Events</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>📚</span> Learning & Skills</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>🏃</span> Fitness</div>
+        <div class="interest-chip" onclick="toggle(this)"><span>🍸</span> Cocktails & Bars</div>
+      </div>
+
+      <h3 style="margin-bottom:10px;">How do you want to show up?</h3>
+      <div class="entry-cards">
+        <div class="entry-card selected" onclick="pickEntry(this)">
+          <div class="entry-icon">🙋</div>
+          <div class="entry-title">Just me</div>
+          <div class="entry-desc">Go solo, meet people there</div>
+        </div>
+        <div class="entry-card" onclick="pickEntry(this)">
+          <div class="entry-icon">👯</div>
+          <div class="entry-title">Me + a friend</div>
+          <div class="entry-desc">Bring someone I know</div>
+        </div>
+        <div class="entry-card" onclick="pickEntry(this)">
+          <div class="entry-icon">🤷</div>
+          <div class="entry-title">Either works</div>
+          <div class="entry-desc">Depends on the outing</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="goTo('step4')">See my results →</button>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="ob-screen" id="step4">
+      <div class="ob-top">
+        <button class="ob-back" onclick="goTo('step3')">←</button>
+        <span class="ob-step">4 of 4</span>
+      </div>
+      <div class="ob-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+
+      <div style="margin-top:10px;"></div>
+
+      <div class="result-card">
+        <span class="result-emoji">🌿</span>
+        <div class="result-type">The Grounded Explorer</div>
+        <p class="result-desc">You show up curious, not performative. You like trying new things but need them to feel real — a good plan, real people, a reason to be there.</p>
+      </div>
+
+      <div class="traits-box">
+        <div class="trait-row">
+          <span class="trait-label">Spontaneity</span>
+          <div class="trait-bar"><div class="trait-fill" style="width:55%"></div></div>
+          <span class="trait-val">Balanced</span>
+        </div>
+        <div class="trait-row">
+          <span class="trait-label">Social energy</span>
+          <div class="trait-bar"><div class="trait-fill" style="width:40%"></div></div>
+          <span class="trait-val">Intro-leaning</span>
+        </div>
+        <div class="trait-row">
+          <span class="trait-label">Communication</span>
+          <div class="trait-bar"><div class="trait-fill" style="width:70%"></div></div>
+          <span class="trait-val">Direct</span>
+        </div>
+      </div>
+
+      <div class="trial-banner">
+        <div class="tb-icon">🎉</div>
+        <div>
+          <div class="tb-title">Your first outing is on us</div>
+          <div class="tb-sub">No credit card needed — one user outing + one curated event free.</div>
+        </div>
+      </div>
+
+      <a href="feed.html" class="btn btn-primary">See my matches →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function goTo(id) {
+  document.querySelectorAll('.ob-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('.screen-scroll').scrollTop = 0;
+}
+function pick(el, g) {
+  document.querySelectorAll('#'+g+' .quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggle(el) { el.classList.toggle('selected'); }
+function pickEntry(el) {
+  document.querySelectorAll('.entry-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — Check In</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-top { padding: 14px 24px 10px; }
+    .page-top .sub { font-size: 12px; color: var(--stone); margin-bottom: 3px; }
+
+    .tonight-card {
+      margin: 4px 16px 12px;
+      background: var(--deep-moss);
+      border-radius: 18px; padding: 20px;
+    }
+    .tc-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 10px;
+    }
+    .countdown-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .countdown-block {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(100,175,155,0.18);
+      border-radius: 12px; padding: 10px 8px;
+      text-align: center; flex: 1;
+    }
+    .cd-num {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--cream); line-height: 1;
+    }
+    .cd-unit { font-size: 10px; color: var(--sage); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tc-title {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--cream); line-height: 1.2; margin-bottom: 10px;
+    }
+    .tc-meta { font-size: 13px; color: #8aad9f; display: flex; flex-direction: column; gap: 4px; }
+
+    .map-box {
+      margin: 0 16px 12px;
+      border-radius: 16px; height: 130px;
+      background: linear-gradient(135deg, #c4dbd2, #aeccc2, #9abfb4);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 5px;
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .map-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.07) 28px, rgba(255,255,255,0.07) 29px),
+                  repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.07) 28px, rgba(255,255,255,0.07) 29px);
+    }
+    .map-pin   { font-size: 32px; position: relative; z-index: 1; }
+    .map-name  { font-size: 13px; font-weight: 700; color: var(--deep-moss); position: relative; z-index: 1; }
+    .map-tap   { font-size: 11px; color: var(--stone); position: relative; z-index: 1; }
+
+    .safety-strip {
+      margin: 0 16px 12px;
+      background: #fffbec; border: 1.5px solid #f0d97a;
+      border-radius: 14px; padding: 12px 15px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .safety-strip .ss-icon  { font-size: 18px; }
+    .safety-strip .ss-title { font-size: 13px; font-weight: 700; color: var(--deep-moss); }
+    .safety-strip .ss-sub   { font-size: 11px; color: var(--stone); margin-top: 1px; }
+    .safety-strip .ss-btn {
+      background: var(--deep-moss); color: white;
+      font-size: 11px; font-weight: 700;
+      padding: 7px 12px; border-radius: 8px;
+      border: none; cursor: pointer; flex-shrink: 0;
+    }
+
+    .checkin-wrap { margin: 0 16px 14px; }
+    .checkin-btn {
+      width: 100%; border: none; cursor: pointer;
+      background: var(--forest);
+      border-radius: 16px; padding: 19px 16px;
+      text-align: center;
+    }
+    .checkin-btn:active { opacity: 0.85; }
+    .checkin-btn.done  { background: var(--sage); }
+    .cb-main { font-size: 16px; font-weight: 700; color: white; display: block; margin-bottom: 4px; }
+    .cb-sub  { font-size: 12px; color: rgba(255,255,255,0.72); display: block; }
+    .gps-note { text-align: center; font-size: 11px; color: var(--stone); margin-top: 7px; }
+
+    .att-row {
+      display: flex; align-items: center; gap: 11px;
+      padding: 11px 24px; border-bottom: 1px solid var(--linen);
+    }
+    .att-row:last-child { border-bottom: none; }
+    .att-av {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .att-name   { font-size: 13px; font-weight: 700; color: var(--deep-moss); }
+    .att-status { font-size: 11px; font-weight: 600; margin-top: 2px; }
+    .att-status.here { color: var(--forest); }
+    .att-status.way  { color: #b06000; }
+    .att-status.soon { color: var(--stone); }
+    .att-dot { width: 9px; height: 9px; border-radius: 50%; margin-left: auto; flex-shrink: 0; }
+    .att-dot.green { background: var(--sage); }
+    .att-dot.amber { background: #f6c344; }
+    .att-dot.empty { background: var(--linen); border: 1.5px solid #c2bfb5; }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span class="status-time">7:52 PM</span>
+    <span class="status-icons">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="screen-scroll">
+    <div class="page-top">
+      <div class="sub">Tonight</div>
+      <h2>Time to show up 👋</h2>
+    </div>
+
+    <div class="tonight-card">
+      <div class="tc-label">Starts in</div>
+      <div class="countdown-row">
+        <div class="countdown-block"><div class="cd-num">0</div><div class="cd-unit">hours</div></div>
+        <div class="countdown-block"><div class="cd-num">8</div><div class="cd-unit">mins</div></div>
+        <div class="countdown-block"><div class="cd-num">8:00</div><div class="cd-unit">start</div></div>
+      </div>
+      <div class="tc-title">Late-night ramen tasting on 6th</div>
+      <div class="tc-meta">
+        <span>📍 Ramen Tatsu-ya · East 6th St</span>
+        <span>👥 4 people confirmed</span>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <div class="map-pin">📍</div>
+      <div class="map-name">Ramen Tatsu-ya</div>
+      <div class="map-tap">Tap for directions</div>
+    </div>
+
+    <div class="safety-strip">
+      <span class="ss-icon">🛡️</span>
+      <div style="flex:1;">
+        <div class="ss-title">Share location with a contact?</div>
+        <div class="ss-sub">Optional · 10 seconds to set up</div>
+      </div>
+      <button class="ss-btn">Set up</button>
+    </div>
+
+    <div class="checkin-wrap">
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">
+        <span class="cb-main">📍 Check in at venue</span>
+        <span class="cb-sub">Tap when you arrive · GPS confirms your location</span>
+      </button>
+      <p class="gps-note">Must be within 500m of venue</p>
+    </div>
+
+    <div class="section-label">Who's here</div>
+
+    <div class="att-row">
+      <div class="att-av" style="background:#7b5ea7;">P</div>
+      <div><div class="att-name">Priya</div><div class="att-status here">✓ Checked in</div></div>
+      <div class="att-dot green"></div>
+    </div>
+    <div class="att-row">
+      <div class="att-av" style="background:#c0832a;">E</div>
+      <div><div class="att-name">Eli</div><div class="att-status way">On the way · 4 min</div></div>
+      <div class="att-dot amber"></div>
+    </div>
+    <div class="att-row">
+      <div class="att-av" style="background:#167a5f;">M</div>
+      <div><div class="att-name">Maya <span style="font-weight:400;color:var(--stone);">you</span></div><div class="att-status soon" id="yourStatus">Not checked in yet</div></div>
+      <div class="att-dot empty" id="yourDot"></div>
+    </div>
+    <div class="att-row">
+      <div class="att-av" style="background:#2e7d9b;">R</div>
+      <div><div class="att-name">Ravi</div><div class="att-status soon">Not checked in yet</div></div>
+      <div class="att-dot empty"></div>
+    </div>
+
+    <div style="padding:16px 16px 8px;">
+      <a href="feedback.html" class="btn btn-secondary">Skip to feedback →</a>
+    </div>
+  </div>
+
+  <nav class="nav-bar">
+    <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Discover</span></a>
+    <a href="checkin.html" class="nav-item active"><span class="nav-icon">🗓️</span><span class="nav-label">My Outings</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Groups</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+  </nav>
+</div>
+
+<script>
+function doCheckin() {
+  const btn = document.getElementById('checkinBtn');
+  btn.classList.add('done');
+  btn.innerHTML = '<span class="cb-main">✓ You\'re checked in!</span><span class="cb-sub">Welcome — enjoy the ramen 🍜</span>';
+  document.getElementById('yourStatus').textContent = '✓ Checked in';
+  document.getElementById('yourStatus').className = 'att-status here';
+  document.getElementById('yourDot').className = 'att-dot green';
+  setTimeout(() => { window.location.href = 'feedback.html'; }, 2000);
+}
+</script>
+</body>
+</html>

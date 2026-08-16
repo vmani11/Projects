@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — Interactive Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f0ede6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+      font-family: Arial, 'Arial Nova', sans-serif;
+    }
+    #slabel {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 16px;
+      letter-spacing: 0.2px;
+    }
+    :root {
+      --tf: #167a5f; --td: #2e3c33; --ts: #64af9b;
+      --tc: #f1efe9; --tl: #edeae1; --tst: #545454;
+      --tsb: rgba(22,122,95,0.1);
+    }
+    .tp {
+      width: 390px; height: 800px;
+      background: var(--tc);
+      border-radius: 44px;
+      border: 1.5px solid rgba(0,0,0,0.12);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 8px #e5e2db;
+    }
+    .tscr { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--tc); }
+    .tscr.act { display: flex; }
+    .tsbar { display: flex; justify-content: space-between; padding: 14px 24px 6px; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+    .tscroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .tscroll::-webkit-scrollbar { width: 0; }
+    .tnav { display: flex; border-top: 1px solid var(--tl); padding: 8px 0 16px; flex-shrink: 0; background: var(--tc); }
+    .tni { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; font-size: 10px; color: var(--tst); border: none; background: none; font-family: inherit; }
+    .tni.act { color: var(--tf); }
+    .tni i { font-size: 20px; }
+    .ser { font-family: 'Noto Serif', Georgia, serif; }
+    .tbtn { width: 100%; background: var(--tf); color: white; border: none; border-radius: 14px; padding: 16px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; }
+    .tbtn:active { opacity: .85; }
+    .tcard { background: white; border: 1.5px solid var(--tl); border-radius: 16px; padding: 16px; margin: 0 16px 12px; }
+    .tchip { display: inline-flex; align-items: center; padding: 6px 14px; border: 1.5px solid var(--tl); border-radius: 20px; font-size: 13px; cursor: pointer; color: var(--tst); background: white; white-space: nowrap; }
+    .tchip.act { background: var(--tf); color: white; border-color: var(--tf); }
+    .secl { font-size: 11px; font-weight: 500; letter-spacing: .8px; text-transform: uppercase; color: var(--tst); padding: 8px 20px 6px; }
+    .av { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; color: white; flex-shrink: 0; }
+    .ob-opt { padding: 14px 16px; border: 1.5px solid var(--tl); border-radius: 14px; margin-bottom: 8px; cursor: pointer; font-size: 14px; color: var(--td); background: white; }
+  </style>
+</head>
+<body>
+
+<div id="slabel">Screen 1 of 7 — Splash</div>
+
+<div class="tp">
+
+<!-- SCREEN 1: SPLASH -->
+<div class="tscr act" id="s1" style="background:var(--td)">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px">
+    <div class="ser" style="font-size:54px;color:var(--tc);letter-spacing:-1px;margin-bottom:10px">tether</div>
+    <div style="font-size:15px;color:var(--ts);text-align:center;line-height:1.6;margin-bottom:44px">Real outings. Real people.<br>No swipe culture.</div>
+    <div style="display:flex;margin-bottom:10px">
+      <div class="av" style="width:36px;height:36px;background:#7b5ea7;border:2px solid var(--td);font-size:13px">M</div>
+      <div class="av" style="width:36px;height:36px;background:#c0832a;border:2px solid var(--td);font-size:13px;margin-left:-8px">J</div>
+      <div class="av" style="width:36px;height:36px;background:#2e7d9b;border:2px solid var(--td);font-size:13px;margin-left:-8px">P</div>
+      <div class="av" style="width:36px;height:36px;background:#b5474a;border:2px solid var(--td);font-size:13px;margin-left:-8px">E</div>
+    </div>
+    <div style="font-size:12px;color:rgba(100,175,155,.75);margin-bottom:44px">1,200+ UT Austin students</div>
+    <button class="tbtn" onclick="go('s2')" style="background:var(--ts)">Get started</button>
+    <button onclick="go('s3')" style="background:none;border:none;color:rgba(100,175,155,.7);font-size:13px;margin-top:14px;cursor:pointer;font-family:inherit">Already have an account</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: ONBOARDING -->
+<div class="tscr" id="s2">
+  <div class="tsbar" style="color:var(--td)"><span>9:41</span><span style="display:flex;gap:4px;align-items:center;color:var(--tst)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+  <div style="padding:0 20px 8px;flex-shrink:0">
+    <div style="display:flex;gap:4px;margin-bottom:4px">
+      <div id="pb1" style="height:3px;flex:1;background:var(--tf);border-radius:2px"></div>
+      <div id="pb2" style="height:3px;flex:1;background:var(--tl);border-radius:2px"></div>
+      <div id="pb3" style="height:3px;flex:1;background:var(--tl);border-radius:2px"></div>
+      <div id="pb4" style="height:3px;flex:1;background:var(--tl);border-radius:2px"></div>
+    </div>
+  </div>
+  <div class="tscroll" id="ob-scroll">
+    <div id="ob1" style="padding:8px 20px 20px">
+      <div class="ser" style="font-size:24px;font-weight:700;color:var(--td);margin-bottom:6px">What's your name?</div>
+      <div style="font-size:13px;color:var(--tst);margin-bottom:20px">We'll use this in your profile.</div>
+      <input type="text" value="Maya" style="width:100%;padding:13px 15px;border:1.5px solid var(--tl);border-radius:12px;font-size:15px;background:white;color:var(--td);margin-bottom:10px;outline:none;font-family:inherit">
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <select style="flex:1;padding:13px 12px;border:1.5px solid var(--tl);border-radius:12px;font-size:14px;background:white;color:var(--td);font-family:inherit"><option>UT Austin</option><option>UT Dallas</option></select>
+        <select style="flex:1;padding:13px 12px;border:1.5px solid var(--tl);border-radius:12px;font-size:14px;background:white;color:var(--td);font-family:inherit"><option>Sophomore</option><option>Freshman</option><option>Junior</option></select>
+      </div>
+      <button class="tbtn" onclick="obGo(2)">Continue</button>
+    </div>
+    <div id="ob2" style="display:none;padding:8px 20px 20px">
+      <div class="ser" style="font-size:22px;font-weight:700;color:var(--td);margin-bottom:6px">Your vibe check</div>
+      <div style="font-size:13px;color:var(--tst);margin-bottom:18px">Pick what feels most like you.</div>
+      <div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:10px">Friday night — you're most likely to:</div>
+      <div id="q1">
+        <div class="ob-opt" onclick="pick(this,'q1')">Try a new restaurant you heard about</div>
+        <div class="ob-opt" onclick="pick(this,'q1')">Say yes to whatever friends suggest</div>
+        <div class="ob-opt" onclick="pick(this,'q1')">Stick to your usual spot and decompress</div>
+      </div>
+      <button class="tbtn" style="margin-top:16px" onclick="obGo(3)">Continue</button>
+      <button onclick="obGo(1)" style="background:none;border:none;color:var(--tst);font-size:13px;cursor:pointer;width:100%;margin-top:10px;font-family:inherit">Back</button>
+    </div>
+    <div id="ob3" style="display:none;padding:8px 20px 20px">
+      <div class="ser" style="font-size:22px;font-weight:700;color:var(--td);margin-bottom:6px">What's your scene?</div>
+      <div style="font-size:13px;color:var(--tst);margin-bottom:14px">Pick everything that sounds good.</div>
+      <div style="margin-bottom:16px">
+        <span class="tchip act" onclick="tog(this)" style="margin:3px">Food & Drink</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Outdoors</span>
+        <span class="tchip act" onclick="tog(this)" style="margin:3px">Arts</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Live Music</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Film</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Markets</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Sports</span>
+        <span class="tchip" onclick="tog(this)" style="margin:3px">Learning</span>
+      </div>
+      <div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:10px">Group size preference</div>
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <span class="tchip gsz act" onclick="gsz(this)">2–4 people</span>
+        <span class="tchip gsz" onclick="gsz(this)">4–8 people</span>
+        <span class="tchip gsz" onclick="gsz(this)">Any size</span>
+      </div>
+      <button class="tbtn" onclick="obGo(4)">See my personality type</button>
+      <button onclick="obGo(2)" style="background:none;border:none;color:var(--tst);font-size:13px;cursor:pointer;width:100%;margin-top:10px;font-family:inherit">Back</button>
+    </div>
+    <div id="ob4" style="display:none;padding:8px 20px 20px">
+      <div style="text-align:center;padding:12px 0 20px">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--tsb);border:2px solid var(--tf);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><i class="ti ti-leaf" style="font-size:32px;color:var(--tf)"></i></div>
+        <div class="ser" style="font-size:24px;font-weight:700;color:var(--td);margin-bottom:6px">Grounded Explorer</div>
+        <div style="font-size:13px;color:var(--tst);line-height:1.55">You prefer experiences that feel intentional — new places, but with a reason to be there.</div>
+      </div>
+      <div style="background:var(--tsb);border:1.5px solid rgba(22,122,95,.15);border-radius:14px;padding:16px;margin-bottom:20px">
+        <div style="font-size:11px;font-weight:500;color:var(--tst);margin-bottom:12px;text-transform:uppercase;letter-spacing:.8px">Your traits</div>
+        <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--td);margin-bottom:4px"><span>Adventurous</span><span style="color:var(--tf)">72%</span></div><div style="height:6px;background:var(--tl);border-radius:4px"><div style="height:100%;width:72%;background:var(--tf);border-radius:4px"></div></div></div>
+        <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--td);margin-bottom:4px"><span>Spontaneous</span><span style="color:var(--tf)">45%</span></div><div style="height:6px;background:var(--tl);border-radius:4px"><div style="height:100%;width:45%;background:var(--tf);border-radius:4px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--td);margin-bottom:4px"><span>Social energy</span><span style="color:var(--tf)">60%</span></div><div style="height:6px;background:var(--tl);border-radius:4px"><div style="height:100%;width:60%;background:var(--tf);border-radius:4px"></div></div></div>
+      </div>
+      <button class="tbtn" onclick="go('s3')">Find my outings <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: FEED -->
+<div class="tscr" id="s3">
+  <div class="tsbar" style="color:var(--td)"><span>9:41</span><span style="display:flex;gap:4px;align-items:center;color:var(--tst)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+  <div class="tscroll">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:2px 20px 10px">
+      <div class="ser" style="font-size:22px;color:var(--tf);font-weight:700">tether</div>
+      <div style="position:relative;cursor:pointer"><i class="ti ti-bell" style="font-size:22px;color:var(--td)"></i><div style="width:8px;height:8px;background:#e24b4a;border-radius:50%;border:1.5px solid var(--tc);position:absolute;top:-1px;right:-1px"></div></div>
+    </div>
+    <div style="padding:0 20px 12px">
+      <div style="font-size:12px;color:var(--tst);margin-bottom:2px">Good morning</div>
+      <div class="ser" style="font-size:22px;font-weight:700;color:var(--td)">What do you want to do?</div>
+    </div>
+    <div style="display:flex;gap:6px;padding:0 20px 14px;overflow-x:auto">
+      <span class="tchip act">All</span>
+      <span class="tchip">Food & Drink</span>
+      <span class="tchip">Outdoors</span>
+      <span class="tchip">Arts</span>
+      <span class="tchip">Social</span>
+    </div>
+    <div onclick="go('s4')" style="background:var(--td);border-radius:18px;padding:20px;margin:0 16px 12px;cursor:pointer">
+      <div style="display:inline-flex;background:rgba(100,175,155,.18);border:1px solid rgba(100,175,155,.28);color:var(--ts);font-size:10px;font-weight:500;letter-spacing:.6px;padding:4px 10px;border-radius:20px;margin-bottom:10px">TETHER-HOSTED · FEATURED</div>
+      <div class="ser" style="font-size:20px;font-weight:700;color:var(--tc);line-height:1.25;margin-bottom:10px">Sunrise hike at Barton Creek + breakfast tacos</div>
+      <div style="font-size:12px;color:#8aad9f;margin-bottom:14px">Sunday 6:30am · $15 · <span style="color:#f6c344;font-weight:500">4 spots left</span></div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--tf);color:white;font-size:13px;font-weight:500;padding:9px 16px;border-radius:10px">See the outing <i class="ti ti-arrow-right" style="font-size:14px"></i></div>
+    </div>
+    <div class="secl">Matched for you</div>
+    <div onclick="go('s4')" class="tcard" style="cursor:pointer">
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--tsb);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-bowl" style="font-size:22px;color:var(--tf)"></i></div>
+        <div><div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:4px">Late-night ramen tasting on 6th</div><div style="font-size:12px;color:var(--tst)">This Friday, 8pm · East 6th</div><div style="display:flex;gap:6px;margin-top:6px;align-items:center"><span style="background:var(--tsb);color:var(--tf);font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px">Free</span><span style="font-size:11px;font-weight:500;color:#b06000">2 spots left</span></div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--tl)">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="display:flex"><div class="av" style="width:26px;height:26px;background:#167a5f;border:2px solid white;font-size:10px">M</div><div class="av" style="width:26px;height:26px;background:#7b5ea7;border:2px solid white;font-size:10px;margin-left:-7px">P</div><div class="av" style="width:26px;height:26px;background:#c0832a;border:2px solid white;font-size:10px;margin-left:-7px">E</div></div>
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--tf);background:var(--tsb);padding:3px 8px;border-radius:20px"><i class="ti ti-circle-check" style="font-size:12px"></i> Strong match</span>
+        </div>
+        <span style="font-size:13px;font-weight:500;color:var(--tf)">Join <i class="ti ti-arrow-right" style="font-size:12px;vertical-align:-1px"></i></span>
+      </div>
+    </div>
+    <div onclick="go('s4')" class="tcard" style="cursor:pointer">
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--tsb);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-palette" style="font-size:22px;color:var(--tf)"></i></div>
+        <div><div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:4px">Pottery drop-in at Radius Studio</div><div style="font-size:12px;color:var(--tst)">Saturday, 11am · South Congress</div><div style="margin-top:6px"><span style="background:var(--tl);color:var(--td);font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px">$35</span></div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--tl)">
+        <div style="display:flex;gap:8px;align-items:center"><div style="display:flex"><div class="av" style="width:26px;height:26px;background:#2e7d9b;border:2px solid white;font-size:10px">J</div><div class="av" style="width:26px;height:26px;background:#b5474a;border:2px solid white;font-size:10px;margin-left:-7px">S</div></div><span style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:#b06000;background:rgba(192,131,42,.1);padding:3px 8px;border-radius:20px"><i class="ti ti-circle-check" style="font-size:12px"></i> Good match</span></div>
+        <span style="font-size:13px;font-weight:500;color:var(--tf)">Join <i class="ti ti-arrow-right" style="font-size:12px;vertical-align:-1px"></i></span>
+      </div>
+    </div>
+    <div style="margin:4px 16px 20px;background:white;border:1.5px solid var(--tl);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:12px;background:var(--tsb);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-plus" style="font-size:22px;color:var(--tf)"></i></div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--td)">Have something in mind?</div><div style="font-size:12px;color:var(--tst)">Post an outing — we'll find your group</div></div>
+      <div style="background:var(--td);color:white;font-size:12px;font-weight:500;padding:8px 14px;border-radius:10px;cursor:pointer">Post</div>
+    </div>
+  </div>
+  <nav class="tnav">
+    <button class="tni act" onclick="go('s3')"><i class="ti ti-compass"></i>Discover</button>
+    <button class="tni" onclick="go('s6')"><i class="ti ti-calendar"></i>My Outings</button>
+    <button class="tni"><i class="ti ti-message-2"></i>Groups</button>
+    <button class="tni" onclick="go('s2')"><i class="ti ti-user"></i>Profile</button>
+  </nav>
+</div>
+
+<!-- SCREEN 4: OUTING DETAIL -->
+<div class="tscr" id="s4">
+  <div style="background:var(--td);flex-shrink:0">
+    <div class="tsbar"><span style="color:var(--tc)">9:41</span><span style="display:flex;gap:4px;color:var(--ts)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+    <div style="padding:6px 20px 22px">
+      <button onclick="go('s3')" style="background:rgba(255,255,255,.1);border:none;color:var(--ts);font-size:13px;padding:6px 14px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin-bottom:14px;font-family:inherit"><i class="ti ti-arrow-left" style="font-size:14px"></i> Back</button>
+      <div style="display:inline-flex;background:rgba(100,175,155,.18);border:1px solid rgba(100,175,155,.28);color:var(--ts);font-size:10px;font-weight:500;letter-spacing:.6px;padding:4px 10px;border-radius:20px;margin-bottom:10px">FOOD & DRINK</div>
+      <div class="ser" style="font-size:22px;font-weight:700;color:var(--tc);line-height:1.25;margin-bottom:10px">Late-night ramen tasting on 6th</div>
+      <div style="font-size:13px;color:#8aad9f;margin-bottom:5px;display:flex;align-items:center;gap:6px"><i class="ti ti-calendar" style="font-size:14px"></i> This Friday · 8:00 PM</div>
+      <div style="font-size:13px;color:#8aad9f;display:flex;align-items:center;gap:6px"><i class="ti ti-map-pin" style="font-size:14px"></i> East 6th St <span style="opacity:.5;margin-left:4px">· address after joining</span></div>
+    </div>
+  </div>
+  <div class="tscroll">
+    <div style="padding:16px 20px 0">
+      <div class="secl" style="padding:0 0 8px">About this outing</div>
+      <p style="font-size:13px;color:var(--td);line-height:1.6;margin-bottom:16px">Found a spot doing a soft launch — they want a small group to try the menu before they open publicly. No cost, just good food and honest feedback. About 2 hours.</p>
+      <div class="secl" style="padding:0 0 8px">Why you're matched</div>
+      <div style="background:var(--tsb);border:1.5px solid rgba(22,122,95,.15);border-radius:14px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--td);line-height:1.55"><strong style="color:var(--tf)">You all tend to prefer a loose plan</strong> — everyone leans toward trying new spots. Low-key and real.</div>
+      <div class="secl" style="padding:0 0 8px">Your group</div>
+      <div style="border:1.5px solid var(--tl);border-radius:14px;overflow:hidden;background:white;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--tl)"><div class="av" style="width:42px;height:42px;background:#167a5f;font-size:15px">M</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Maya <span style="font-weight:400;color:var(--tst);font-size:12px">you</span></div><div style="font-size:11px;color:var(--ts);font-weight:500">Grounded Explorer · intro-leaning</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--tl)"><div class="av" style="width:42px;height:42px;background:#7b5ea7;font-size:15px">P</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Priya</div><div style="font-size:11px;color:var(--ts);font-weight:500">Spontaneous · extro-leaning</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--tl)"><div class="av" style="width:42px;height:42px;background:#c0832a;font-size:15px">E</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Eli</div><div style="font-size:11px;color:var(--ts);font-weight:500">Intro-leaning · spontaneous</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;opacity:.5"><div style="width:42px;height:42px;border-radius:50%;border:2px dashed #c2bfb5;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--tst)">?</div><div style="font-size:13px;color:var(--tst)">1 more person · Matching now…</div></div>
+      </div>
+      <div style="background:white;border:1.5px solid var(--tl);border-radius:14px;padding:14px 16px;display:flex;gap:10px;align-items:center"><i class="ti ti-lock" style="font-size:22px;color:var(--tst);flex-shrink:0"></i><div><div style="font-size:13px;font-weight:500;color:var(--td)">Group chat unlocks when you join</div><div style="font-size:12px;color:var(--tst)">Venue address shared here too.</div></div></div>
+    </div>
+    <div style="position:sticky;bottom:0;background:var(--tc);border-top:1.5px solid var(--tl);padding:14px 20px 20px;margin-top:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><div style="font-size:11px;font-weight:500;color:var(--tst);text-transform:uppercase;letter-spacing:.5px">Price</div><div class="ser" style="font-size:26px;font-weight:700;color:var(--td)">Free</div></div><span style="background:var(--tsb);color:var(--tf);font-size:12px;font-weight:500;padding:6px 12px;border-radius:20px">Trial — no card needed</span></div>
+      <button class="tbtn" onclick="go('s5')" style="font-size:15px">I'm in — join this outing</button>
+      <div style="text-align:center;font-size:11px;color:var(--tst);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-lock" style="font-size:13px"></i> Verified profiles · Safety check-in on the day</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 5: CONFIRMED -->
+<div class="tscr" id="s5">
+  <div class="tsbar" style="color:var(--td)"><span>9:41</span><span style="display:flex;gap:4px;color:var(--tst)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+  <div class="tscroll">
+    <div style="text-align:center;padding:22px 24px 16px">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--tsb);border:2px solid var(--tf);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><i class="ti ti-check" style="font-size:28px;color:var(--tf)"></i></div>
+      <div class="ser" style="font-size:26px;font-weight:700;color:var(--td);margin-bottom:6px">You're in, Maya!</div>
+      <div style="font-size:13px;color:var(--tst);line-height:1.55">Group confirmed. We'll remind you the morning of and 2 hours before.</div>
+    </div>
+    <div style="background:var(--td);border-radius:18px;padding:20px;margin:0 16px 12px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--ts);margin-bottom:8px">Your outing</div>
+      <div class="ser" style="font-size:18px;font-weight:700;color:var(--tc);margin-bottom:10px">Late-night ramen tasting on 6th</div>
+      <div style="font-size:13px;color:#8aad9f;margin-bottom:4px;display:flex;gap:6px;align-items:center"><i class="ti ti-calendar" style="font-size:14px"></i> This Friday · 8:00 PM</div>
+      <div style="font-size:13px;color:#8aad9f;margin-bottom:4px;display:flex;gap:6px;align-items:center"><i class="ti ti-users" style="font-size:14px"></i> Group of 4 confirmed</div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(100,175,155,.22);border-radius:12px;padding:12px 14px;margin-top:12px;display:flex;gap:10px;align-items:center"><i class="ti ti-map-pin" style="font-size:20px;color:var(--ts)"></i><div><div style="font-size:10px;font-weight:500;color:var(--ts);text-transform:uppercase;letter-spacing:.6px">Address unlocked</div><div style="font-size:13px;color:var(--tc);font-weight:500;margin-top:2px">Ramen Tatsu-ya · 1234 East 6th St</div></div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin:0 16px 12px">
+      <div style="flex:1;background:white;border:1.5px solid var(--tl);border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer"><i class="ti ti-calendar-plus" style="font-size:20px;color:var(--td);display:block;margin-bottom:4px"></i><div style="font-size:11px;font-weight:500;color:var(--td)">Calendar</div></div>
+      <div style="flex:1;background:white;border:1.5px solid var(--tl);border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer"><i class="ti ti-map-2" style="font-size:20px;color:var(--td);display:block;margin-bottom:4px"></i><div style="font-size:11px;font-weight:500;color:var(--td)">Directions</div></div>
+      <div style="flex:1;background:white;border:1.5px solid var(--tl);border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer"><i class="ti ti-share" style="font-size:20px;color:var(--td);display:block;margin-bottom:4px"></i><div style="font-size:11px;font-weight:500;color:var(--td)">Share</div></div>
+    </div>
+    <div class="tcard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><span style="font-size:14px;font-weight:500;color:var(--td)">Group chat</span><span style="font-size:10px;font-weight:500;background:var(--tf);color:white;padding:3px 8px;border-radius:6px">3 members</span></div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;align-items:flex-start"><div class="av" style="width:28px;height:28px;background:#7b5ea7;font-size:10px;flex-shrink:0">P</div><div><div style="font-size:10px;font-weight:500;color:var(--tst);margin-bottom:3px">Priya</div><div style="background:var(--tl);border-radius:10px 10px 10px 3px;padding:8px 12px;font-size:12px;color:var(--td);max-width:200px">omg I've heard this place is incredible</div></div></div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;align-items:flex-start"><div class="av" style="width:28px;height:28px;background:#c0832a;font-size:10px;flex-shrink:0">E</div><div><div style="font-size:10px;font-weight:500;color:var(--tst);margin-bottom:3px">Eli</div><div style="background:var(--tl);border-radius:10px 10px 10px 3px;padding:8px 12px;font-size:12px;color:var(--td);max-width:200px">I'll bring my camera — soft launch means no crowds</div></div></div>
+      <div style="display:flex;flex-direction:row-reverse;gap:8px;margin-bottom:10px;align-items:flex-start"><div class="av" style="width:28px;height:28px;background:#167a5f;font-size:10px;flex-shrink:0">M</div><div style="text-align:right"><div style="font-size:10px;font-weight:500;color:var(--tst);margin-bottom:3px">You</div><div style="background:var(--tf);color:white;border-radius:10px 10px 3px 10px;padding:8px 12px;font-size:12px;max-width:200px">Can't wait! See everyone Friday</div></div></div>
+      <div style="display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--tl)"><input type="text" placeholder="Message your group…" style="flex:1;background:var(--tl);border:none;border-radius:20px;padding:9px 14px;font-size:13px;color:var(--td);font-family:inherit;outline:none"><button style="width:34px;height:34px;border-radius:50%;background:var(--tf);border:none;cursor:pointer;color:white;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-send" style="font-size:14px"></i></button></div>
+    </div>
+    <div style="margin:0 16px 20px;background:#fffbec;border:1.5px solid #f0d97a;border-radius:14px;padding:14px 15px;display:flex;gap:10px"><i class="ti ti-shield" style="font-size:20px;color:#b06000;flex-shrink:0;margin-top:1px"></i><div><div style="font-size:13px;font-weight:500;color:var(--td);margin-bottom:3px">Safety check-in</div><div style="font-size:12px;color:var(--tst);line-height:1.4">On the day, we'll ask if you want to share your live location with a trusted contact. Optional — 10 seconds.</div></div></div>
+  </div>
+  <nav class="tnav">
+    <button class="tni" onclick="go('s3')"><i class="ti ti-compass"></i>Discover</button>
+    <button class="tni act" onclick="go('s6')"><i class="ti ti-calendar"></i>My Outings</button>
+    <button class="tni"><i class="ti ti-message-2"></i>Groups</button>
+    <button class="tni"><i class="ti ti-user"></i>Profile</button>
+  </nav>
+</div>
+
+<!-- SCREEN 6: CHECK-IN -->
+<div class="tscr" id="s6">
+  <div class="tsbar" style="color:var(--td)"><span>7:52 PM</span><span style="display:flex;gap:4px;color:var(--tst)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+  <div class="tscroll">
+    <div style="padding:0 20px 12px"><div style="font-size:12px;color:var(--tst);margin-bottom:2px">Tonight</div><div class="ser" style="font-size:22px;font-weight:700;color:var(--td)">Time to show up</div></div>
+    <div style="background:var(--td);border-radius:18px;padding:20px;margin:0 16px 12px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Starts in</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(100,175,155,.18);border-radius:12px;padding:10px;text-align:center;flex:1"><div class="ser" style="font-size:24px;font-weight:700;color:var(--tc);line-height:1">0</div><div style="font-size:10px;color:var(--ts);margin-top:3px;text-transform:uppercase">hours</div></div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(100,175,155,.18);border-radius:12px;padding:10px;text-align:center;flex:1"><div class="ser" style="font-size:24px;font-weight:700;color:var(--tc);line-height:1">8</div><div style="font-size:10px;color:var(--ts);margin-top:3px;text-transform:uppercase">mins</div></div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(100,175,155,.18);border-radius:12px;padding:10px;text-align:center;flex:1"><div class="ser" style="font-size:22px;font-weight:700;color:var(--tc);line-height:1">8:00</div><div style="font-size:10px;color:var(--ts);margin-top:3px;text-transform:uppercase">start</div></div>
+      </div>
+      <div class="ser" style="font-size:17px;font-weight:700;color:var(--tc);margin-bottom:8px">Late-night ramen tasting on 6th</div>
+      <div style="font-size:13px;color:#8aad9f;display:flex;align-items:center;gap:5px"><i class="ti ti-map-pin" style="font-size:14px"></i> Ramen Tatsu-ya · East 6th St</div>
+    </div>
+    <div style="height:116px;background:#b8d0ca;border-radius:16px;margin:0 16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
+      <i class="ti ti-map-pin" style="font-size:32px;color:var(--td)"></i>
+      <div style="font-size:13px;font-weight:500;color:var(--td)">Ramen Tatsu-ya</div>
+      <div style="font-size:11px;color:var(--tst)">Tap for directions</div>
+    </div>
+    <div style="margin:0 16px 12px;background:#fffbec;border:1.5px solid #f0d97a;border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:10px"><i class="ti ti-shield" style="font-size:18px;color:#b06000"></i><div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--td)">Share location with a contact?</div><div style="font-size:11px;color:var(--tst)">Optional · 10 seconds to set up</div></div><button style="background:var(--td);color:white;font-size:11px;font-weight:500;padding:7px 12px;border-radius:8px;border:none;cursor:pointer;font-family:inherit">Set up</button></div>
+    <div style="margin:0 16px 12px">
+      <button id="ciBtn" onclick="doCI()" style="width:100%;background:var(--tf);border:none;border-radius:16px;padding:18px 16px;cursor:pointer;font-family:inherit">
+        <div style="font-size:15px;font-weight:500;color:white;display:flex;align-items:center;justify-content:center;gap:8px"><i class="ti ti-map-pin" style="font-size:17px"></i> Check in at venue</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.72);margin-top:3px">Tap when you arrive · GPS confirms your location</div>
+      </button>
+      <div style="text-align:center;font-size:11px;color:var(--tst);margin-top:6px">Must be within 500m of venue</div>
+    </div>
+    <div class="secl">Who's here</div>
+    <div style="border-bottom:1px solid var(--tl);padding:11px 20px;display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;background:#7b5ea7;font-size:13px">P</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Priya</div><div style="font-size:11px;font-weight:500;color:var(--tf);margin-top:2px">Checked in</div></div><div style="width:9px;height:9px;border-radius:50%;background:var(--ts);margin-left:auto"></div></div>
+    <div style="border-bottom:1px solid var(--tl);padding:11px 20px;display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;background:#c0832a;font-size:13px">E</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Eli</div><div style="font-size:11px;font-weight:500;color:#b06000;margin-top:2px">On the way · 4 min</div></div><div style="width:9px;height:9px;border-radius:50%;background:#f6c344;margin-left:auto"></div></div>
+    <div style="border-bottom:1px solid var(--tl);padding:11px 20px;display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;background:#167a5f;font-size:13px">M</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Maya <span style="font-weight:400;color:var(--tst)">you</span></div><div id="yStat" style="font-size:11px;font-weight:500;color:var(--tst);margin-top:2px">Not checked in yet</div></div><div id="yDot" style="width:9px;height:9px;border-radius:50%;background:var(--tl);border:1.5px solid #c2bfb5;margin-left:auto"></div></div>
+    <div style="padding:11px 20px 8px;display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;background:#2e7d9b;font-size:13px">R</div><div><div style="font-size:13px;font-weight:500;color:var(--td)">Ravi</div><div style="font-size:11px;font-weight:500;color:var(--tst);margin-top:2px">Not checked in yet</div></div><div style="width:9px;height:9px;border-radius:50%;background:var(--tl);border:1.5px solid #c2bfb5;margin-left:auto"></div></div>
+    <div style="padding:12px 16px 8px"><button onclick="go('s7')" style="width:100%;background:none;color:var(--tf);border:1.5px solid var(--tl);border-radius:14px;padding:14px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit">Skip to feedback</button></div>
+  </div>
+  <nav class="tnav">
+    <button class="tni" onclick="go('s3')"><i class="ti ti-compass"></i>Discover</button>
+    <button class="tni act"><i class="ti ti-calendar"></i>My Outings</button>
+    <button class="tni"><i class="ti ti-message-2"></i>Groups</button>
+    <button class="tni"><i class="ti ti-user"></i>Profile</button>
+  </nav>
+</div>
+
+<!-- SCREEN 7: FEEDBACK -->
+<div class="tscr" id="s7">
+  <div class="tsbar" style="color:var(--td)"><span>10:48 PM</span><span style="display:flex;gap:4px;color:var(--tst)"><i class="ti ti-wifi" style="font-size:14px"></i><i class="ti ti-battery-2" style="font-size:14px"></i></span></div>
+  <div class="tscroll">
+    <div style="text-align:center;padding:18px 24px 14px">
+      <div style="width:60px;height:60px;border-radius:50%;background:var(--tsb);border:2px solid var(--tf);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><i class="ti ti-moon" style="font-size:26px;color:var(--tf)"></i></div>
+      <div class="ser" style="font-size:24px;font-weight:700;color:var(--td);margin-bottom:6px">How'd it go, Maya?</div>
+      <div style="font-size:13px;color:var(--tst)">30 seconds. Helps us find even better people next time.</div>
+    </div>
+    <div class="tcard">
+      <div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:12px">How well did you click with your group?</div>
+      <div style="display:flex;gap:6px;margin-bottom:8px" id="stars">
+        <button onclick="rate(1)" data-n="1" style="flex:1;aspect-ratio:1;background:var(--tl);border:1.5px solid var(--tl);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.4"><i class="ti ti-star" style="font-size:20px;color:#f6c344"></i></button>
+        <button onclick="rate(2)" data-n="2" style="flex:1;aspect-ratio:1;background:var(--tl);border:1.5px solid var(--tl);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.4"><i class="ti ti-star" style="font-size:20px;color:#f6c344"></i></button>
+        <button onclick="rate(3)" data-n="3" style="flex:1;aspect-ratio:1;background:var(--tl);border:1.5px solid var(--tl);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.4"><i class="ti ti-star" style="font-size:20px;color:#f6c344"></i></button>
+        <button onclick="rate(4)" data-n="4" style="flex:1;aspect-ratio:1;background:#fff8e6;border:1.5px solid #f6c344;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center"><i class="ti ti-star" style="font-size:20px;color:#f6c344"></i></button>
+        <button onclick="rate(5)" data-n="5" style="flex:1;aspect-ratio:1;background:var(--tl);border:1.5px solid var(--tl);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.4"><i class="ti ti-star" style="font-size:20px;color:#f6c344"></i></button>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--tst);font-weight:500;padding:0 2px"><span>Not really</span><span>Really well</span></div>
+    </div>
+    <div class="tcard">
+      <div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:12px">Would you do another outing like this?</div>
+      <div style="display:flex;gap:8px">
+        <div id="tUp" onclick="thumb('up')" style="flex:1;background:var(--tsb);border:1.5px solid var(--tf);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer"><i class="ti ti-thumb-up" style="font-size:26px;color:var(--tf);display:block;margin-bottom:5px"></i><div style="font-size:13px;font-weight:500;color:var(--td)">Yes, loved it</div></div>
+        <div id="tDn" onclick="thumb('down')" style="flex:1;background:var(--tl);border:1.5px solid var(--tl);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer"><i class="ti ti-thumb-down" style="font-size:26px;color:var(--tst);display:block;margin-bottom:5px"></i><div style="font-size:13px;font-weight:500;color:var(--td)">Not for me</div></div>
+      </div>
+    </div>
+    <div style="padding:0 16px 12px">
+      <div style="font-size:14px;font-weight:500;color:var(--td);margin-bottom:2px">Stay connected?</div>
+      <div style="font-size:13px;color:var(--tst);margin-bottom:10px">Connect to plan future outings together.</div>
+      <div id="cc-p" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:white;border:1.5px solid var(--tl);border-radius:14px;margin-bottom:8px"><div class="av" style="width:42px;height:42px;background:#7b5ea7;font-size:15px">P</div><div><div style="font-size:14px;font-weight:500;color:var(--td)">Priya</div><div style="font-size:12px;color:var(--tst)">21 · Food & Drink · Arts</div></div><button id="btn-p" onclick="conn('p')" style="background:var(--tf);color:white;font-size:12px;font-weight:500;padding:8px 14px;border-radius:10px;border:none;cursor:pointer;margin-left:auto;font-family:inherit">Connect</button></div>
+      <div id="cc-e" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:white;border:1.5px solid var(--tl);border-radius:14px;margin-bottom:8px"><div class="av" style="width:42px;height:42px;background:#c0832a;font-size:15px">E</div><div><div style="font-size:14px;font-weight:500;color:var(--td)">Eli</div><div style="font-size:12px;color:var(--tst)">22 · Arts · Food & Drink</div></div><button id="btn-e" onclick="conn('e')" style="background:var(--tf);color:white;font-size:12px;font-weight:500;padding:8px 14px;border-radius:10px;border:none;cursor:pointer;margin-left:auto;font-family:inherit">Connect</button></div>
+    </div>
+    <div style="margin:0 16px 12px;background:var(--td);border-radius:16px;padding:18px;display:flex;gap:12px;align-items:center"><i class="ti ti-camera" style="font-size:28px;color:var(--ts);flex-shrink:0"></i><div style="flex:1"><div class="ser" style="font-size:14px;font-weight:700;color:var(--tc);margin-bottom:3px">Share your first time</div><div style="font-size:12px;color:#8aad9f">Post to your story. No pressure — just vibes.</div></div><button style="background:var(--ts);color:white;font-size:12px;font-weight:500;padding:9px 13px;border-radius:10px;border:none;cursor:pointer;font-family:inherit">Share</button></div>
+    <div onclick="go('s3')" style="margin:0 16px 20px;background:var(--tsb);border:1.5px solid rgba(22,122,95,.18);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer"><i class="ti ti-sparkles" style="font-size:24px;color:var(--tf)"></i><div><div style="font-size:14px;font-weight:500;color:var(--tf)">Find your next outing</div><div style="font-size:12px;color:var(--tst)">Your matches just got smarter</div></div><i class="ti ti-arrow-right" style="font-size:18px;color:var(--tf);margin-left:auto"></i></div>
+  </div>
+  <nav class="tnav">
+    <button class="tni" onclick="go('s3')"><i class="ti ti-compass"></i>Discover</button>
+    <button class="tni act"><i class="ti ti-calendar"></i>My Outings</button>
+    <button class="tni"><i class="ti ti-message-2"></i>Groups</button>
+    <button class="tni"><i class="ti ti-user"></i>Profile</button>
+  </nav>
+</div>
+
+</div><!-- /phone -->
+
+<script>
+const labels={s1:'Splash',s2:'Onboarding',s3:'Discover feed',s4:'Outing detail',s5:'Confirmed',s6:'Check-in',s7:'Feedback'};
+const order=['s1','s2','s3','s4','s5','s6','s7'];
+function go(id){
+  document.querySelectorAll('.tscr').forEach(s=>s.classList.remove('act'));
+  const el=document.getElementById(id);
+  if(el){el.classList.add('act');el.querySelector('.tscroll')?.scrollTo(0,0);}
+  const i=order.indexOf(id)+1;
+  document.getElementById('slabel').textContent='Screen '+i+' of 7 — '+labels[id];
+}
+function obGo(step){
+  for(let i=1;i<=4;i++){
+    document.getElementById('ob'+i).style.display=i===step?'block':'none';
+    document.getElementById('pb'+i).style.background=i<=step?'var(--tf)':'var(--tl)';
+  }
+  document.getElementById('ob-scroll').scrollTo(0,0);
+}
+function pick(el,g){
+  document.querySelectorAll('#'+g+' .ob-opt').forEach(o=>{o.style.background='white';o.style.borderColor='var(--tl)';o.style.color='var(--td)';});
+  el.style.background='var(--tsb)';el.style.borderColor='var(--tf)';el.style.color='var(--tf)';
+}
+function tog(el){el.classList.toggle('act');}
+function gsz(el){document.querySelectorAll('.gsz').forEach(x=>x.classList.remove('act'));el.classList.add('act');}
+function rate(n){
+  document.querySelectorAll('#stars button').forEach(b=>{
+    const bn=parseInt(b.dataset.n);
+    b.style.opacity=bn<=n?'1':'0.4';
+    b.style.background=bn<=n?'#fff8e6':'var(--tl)';
+    b.style.borderColor=bn<=n?'#f6c344':'var(--tl)';
+  });
+}
+function thumb(w){
+  const up=document.getElementById('tUp'),dn=document.getElementById('tDn');
+  up.style.background=w==='up'?'var(--tsb)':'var(--tl)';up.style.borderColor=w==='up'?'var(--tf)':'var(--tl)';
+  dn.style.background=w==='down'?'#fdecea':'var(--tl)';dn.style.borderColor=w==='down'?'#e24b4a':'var(--tl)';
+  up.querySelector('i').style.color=w==='up'?'var(--tf)':'var(--tst)';
+  dn.querySelector('i').style.color=w==='down'?'#e24b4a':'var(--tst)';
+}
+function conn(id){
+  document.getElementById('btn-'+id).textContent='Connected';
+  document.getElementById('btn-'+id).style.background='var(--ts)';
+  document.getElementById('cc-'+id).style.background='rgba(22,122,95,0.08)';
+  document.getElementById('cc-'+id).style.borderColor='var(--ts)';
+}
+function doCI(){
+  const btn=document.getElementById('ciBtn');
+  btn.style.background='var(--ts)';
+  btn.innerHTML='<div style="font-size:15px;font-weight:500;color:white;display:flex;align-items:center;justify-content:center;gap:8px"><i class="ti ti-check" style="font-size:17px"></i> You\'re checked in!</div><div style="font-size:12px;color:rgba(255,255,255,.75);margin-top:3px">Welcome — enjoy the ramen</div>';
+  document.getElementById('yStat').textContent='Checked in';
+  document.getElementById('yStat').style.color='var(--tf)';
+  document.getElementById('yDot').style.background='var(--ts)';
+  document.getElementById('yDot').style.border='none';
+  setTimeout(()=>go('s7'),2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .splash {
+      flex: 1;
+      background: var(--deep-moss);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 52px 32px 52px;
+    }
+
+    .logo-mark { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+    .circles { position: relative; width: 72px; height: 72px; }
+    .circle-big {
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 2px solid rgba(237,234,225,0.6);
+      position: absolute; top: 0; left: 0;
+    }
+    .circle-small {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 2px solid var(--sage);
+      position: absolute; bottom: 0; right: 0;
+    }
+
+    .wordmark {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 54px; font-weight: 700;
+      color: var(--cream);
+      letter-spacing: -2px; line-height: 1;
+    }
+
+    .tagline {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--sage);
+    }
+
+    .quote {
+      text-align: center; padding: 0 8px;
+    }
+    .quote p {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(100,175,155,0.7);
+      line-height: 1.7;
+    }
+
+    .proof {
+      display: flex; align-items: center;
+      justify-content: center; gap: 10px;
+    }
+    .proof-avs { display: flex; }
+    .proof-av {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--deep-moss);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: white;
+      margin-left: -8px;
+    }
+    .proof-av:first-child { margin-left: 0; }
+    .proof-text { font-size: 12px; color: rgba(100,175,155,0.65); font-weight: 600; }
+
+    .splash-actions { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+    .splash-actions .btn-primary { font-size: 16px; padding: 17px; }
+    .splash-link {
+      text-align: center; font-size: 14px;
+      color: var(--sage); text-decoration: none;
+      font-weight: 600; padding: 6px;
+      display: block; opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar dark">
+    <span class="status-time" style="color:var(--cream)">9:41</span>
+    <span class="status-icons" style="color:var(--cream)">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="splash">
+    <div class="logo-mark">
+      <div class="circles">
+        <div class="circle-big"></div>
+        <div class="circle-small"></div>
+      </div>
+      <div class="wordmark">tether</div>
+      <div class="tagline">meet the people worth keeping</div>
+    </div>
+
+    <div class="quote">
+      <p>"Nobody schedules a lifelong friendship,<br>but someone has to open the door."</p>
+    </div>
+
+    <div class="proof">
+      <div class="proof-avs">
+        <div class="proof-av" style="background:#167a5f;">M</div>
+        <div class="proof-av" style="background:#7b5ea7;">P</div>
+        <div class="proof-av" style="background:#c0832a;">E</div>
+        <div class="proof-av" style="background:#2e7d9b;">J</div>
+      </div>
+      <span class="proof-text">200+ on the waitlist</span>
+    </div>
+
+    <div class="splash-actions">
+      <a href="onboarding.html" class="btn btn-primary">Get Started — It's Free</a>
+      <a href="feed.html" class="splash-link">I already have an account →</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

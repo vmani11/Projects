@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether — Discover</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tether-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--forest); color: white;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 6px;
+      margin-bottom: 5px;
+    }
+
+    .hero-card {
+      margin: 6px 16px 10px;
+      background: var(--deep-moss);
+      border-radius: 18px; padding: 20px 20px 22px;
+      text-decoration: none; display: block;
+    }
+    .hero-card:active { opacity: 0.88; }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(100,175,155,0.22);
+      border: 1px solid rgba(100,175,155,0.3);
+      color: var(--sage); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--cream); line-height: 1.2; margin-bottom: 10px;
+    }
+    .hero-meta { font-size: 12px; color: #8aad9f; margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--forest); color: white;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+    }
+
+    .greeting { padding: 8px 24px 10px; }
+    .greeting-sub { font-size: 12px; color: var(--stone); margin-bottom: 3px; }
+    .greeting-hed {
+      font-family: 'Noto Serif', Georgia, serif;
+      font-size: 24px; font-weight: 700; color: var(--deep-moss);
+    }
+
+    .notif-wrap { position: relative; }
+    .notif-dot {
+      width: 8px; height: 8px; background: var(--red);
+      border-radius: 50%; border: 1.5px solid var(--cream);
+      position: absolute; top: -1px; right: -1px;
+    }
+
+    .post-banner {
+      margin: 4px 16px 14px;
+      background: var(--white); border: 1.5px solid var(--linen);
+      border-radius: 14px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .post-banner span { font-size: 26px; }
+    .post-banner-text { flex: 1; }
+    .post-banner-title { font-size: 13px; font-weight: 700; color: var(--deep-moss); margin-bottom: 2px; }
+    .post-banner-sub   { font-size: 12px; color: var(--stone); }
+    .post-banner-btn {
+      background: var(--deep-moss); color: white;
+      font-size: 12px; font-weight: 700;
+      padding: 8px 14px; border-radius: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">●●● WiFi 🔋</span>
+  </div>
+
+  <div class="screen-scroll">
+    <div class="top-bar">
+      <span class="logo-text">tether</span>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="notif-wrap">
+          <span style="font-size:20px;">🔔</span>
+          <div class="notif-dot"></div>
+        </div>
+        <a href="#" class="avatar-sm">M</a>
+      </div>
+    </div>
+
+    <div class="greeting">
+      <div class="greeting-sub">Good morning 👋</div>
+      <div class="greeting-hed">What do you want to do?</div>
+    </div>
+
+    <div class="chips">
+      <div class="chip active">All</div>
+      <div class="chip">Food & Drink</div>
+      <div class="chip">Outdoors</div>
+      <div class="chip">Arts</div>
+      <div class="chip">Social</div>
+      <div class="chip">Tether-hosted</div>
+    </div>
+
+    <!-- Hero -->
+    <a href="outing.html" class="hero-card">
+      <div class="hero-pill">✦ Tether-hosted · Featured</div>
+      <div class="hero-title">Sunrise hike at Barton Creek + breakfast tacos</div>
+      <div class="hero-meta">
+        <span>📅 Sunday 6:30am</span>
+        <span>$15</span>
+        <span style="color:#f6c344;font-weight:700;">4 spots left</span>
+      </div>
+      <div class="hero-btn">See the outing →</div>
+    </a>
+
+    <div class="section-label">Matched for you</div>
+
+    <!-- Card 1 -->
+    <a href="outing.html" class="exp-card">
+      <div class="card-header">
+        <div class="card-icon">🍜</div>
+        <div class="card-meta">
+          <div class="card-title">Late-night ramen tasting on 6th</div>
+          <div class="card-sub">
+            <span>📅 This Friday, 8pm</span>
+            <span>📍 East 6th</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:7px;">
+            <span class="price-tag free">Free</span>
+            <span style="font-size:11px;font-weight:700;color:#b06000;">2 spots left</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="group-avatars">
+            <div class="gav" style="background:#167a5f;">M</div>
+            <div class="gav" style="background:#7b5ea7;">P</div>
+            <div class="gav" style="background:#c0832a;">E</div>
+          </div>
+          <div class="compat-badge">
+            <div class="compat-dot"></div>
+            <span class="compat-text">Strong match</span>
+          </div>
+        </div>
+        <a href="outing.html" class="join-btn">Join →</a>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="outing.html" class="exp-card">
+      <div class="card-header">
+        <div class="card-icon">🧱</div>
+        <div class="card-meta">
+          <div class="card-title">Pottery drop-in at Radius Studio</div>
+          <div class="card-sub">
+            <span>📅 Saturday, 11am</span>
+            <span>📍 South Congress</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:7px;">
+            <span class="price-tag">$35</span>
+            <span style="font-size:11px;color:var(--stone);font-weight:600;">3 spots left</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="group-avatars">
+            <div class="gav" style="background:#2e7d9b;">J</div>
+            <div class="gav" style="background:#b5474a;">S</div>
+          </div>
+          <div class="compat-badge" style="background:var(--amber-bg);">
+            <div class="compat-dot" style="background:#c0832a;"></div>
+            <span class="compat-text" style="color:var(--amber);">Good match</span>
+          </div>
+        </div>
+        <a href="outing.html" class="join-btn">Join →</a>
+      </div>
+    </a>
+
+    <div class="section-label">Tether-hosted outings</div>
+
+    <!-- Card 3 -->
+    <a href="outing.html" class="exp-card">
+      <div class="card-header">
+        <div class="card-icon">🎬</div>
+        <div class="card-meta">
+          <div class="tether-pill">✦ Tether</div>
+          <div class="card-title">Rooftop film screening — Amelie</div>
+          <div class="card-sub">
+            <span>📅 Next Thursday, 7pm</span>
+            <span>📍 The Arrive Hotel</span>
+          </div>
+          <div style="margin-top:7px;">
+            <span class="price-tag">$18</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="group-avatars">
+            <div class="gav" style="background:#167a5f;">M</div>
+            <div class="gav" style="background:#c0832a;">E</div>
+            <div class="gav" style="background:#b5474a;">S</div>
+            <div class="gav" style="background:#2e7d9b;">+4</div>
+          </div>
+          <div class="compat-badge">
+            <div class="compat-dot"></div>
+            <span class="compat-text">Great match</span>
+          </div>
+        </div>
+        <a href="outing.html" class="join-btn">Join →</a>
+      </div>
+    </a>
+
+    <div class="post-banner">
+      <span>✨</span>
+      <div class="post-banner-text">
+        <div class="post-banner-title">Have something in mind?</div>
+        <div class="post-banner-sub">Post an outing — we'll find your group</div>
+      </div>
+      <a href="#" class="post-banner-btn">Post</a>
+    </div>
+
+  </div>
+
+  <nav class="nav-bar">
+    <a href="feed.html" class="nav-item active"><span class="nav-icon">🏠</span><span class="nav-label">Discover</span></a>
+    <a href="checkin.html" class="nav-item"><span class="nav-icon">🗓️</span><span class="nav-label">My Outings</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Groups</span></a>
+    <a href="#" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+  </nav>
+</div>
+</body>
+</html>
