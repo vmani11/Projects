@@ -1,6 +1,10 @@
-# Tasks
+# Task Tracker
 
-A fast, category-first task tracker with day planning. See [`PRD.md`](../PRD.md) (or the doc you wrote the spec in) for the full product spec — this file just covers running and deploying it.
+A fast, category-first task tracker with day planning — built as a replacement for juggling a notes app and a separate to-do app. Categories live as cards on a dashboard (brain-dump tasks, quick-add, progress bars), and a scrollable week strip lets you plan which day you'll actually do them. React + Vite frontend, Supabase for auth/storage, installable as a PWA.
+
+🔗 Live demo: [task-tracker-demo-henna.vercel.app](https://task-tracker-demo-henna.vercel.app/)
+
+The demo runs in the app's built-in local-only mode — no sign-in, nothing to set up, tasks save to your browser and are yours alone (no shared backend). Connecting a real Supabase project instead adds accounts and sync across devices; see below.
 
 Works with no setup at all: without Supabase configured, the app runs in **local-only mode** (data lives in the browser's `localStorage`). Add Supabase credentials to get sync across devices.
 
